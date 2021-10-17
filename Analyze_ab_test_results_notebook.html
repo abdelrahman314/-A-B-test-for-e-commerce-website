@@ -13135,16 +13135,12 @@ div#notebook {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="Analyze-A/B-Test-Results">Analyze A/B Test Results<a class="anchor-link" href="#Analyze-A/B-Test-Results">&#182;</a></h1><p>This project will assure you have mastered the subjects covered in the statistics lessons. We have organized the current notebook into the following sections:</p>
-<ul>
+<h1 id="Analyze-A/B-Test-Results">Analyze A/B Test Results<a class="anchor-link" href="#Analyze-A/B-Test-Results">&#182;</a></h1><ul>
 <li><a href="#intro">Introduction</a></li>
 <li><a href="#probability">Part I - Probability</a></li>
 <li><a href="#ab_test">Part II - A/B Test</a></li>
 <li><a href="#regression">Part III - Regression</a></li>
-<li><a href="#finalcheck">Final Check</a></li>
-<li><a href="#submission">Submission</a></li>
 </ul>
-<p>Specific programming tasks are marked with a <strong>ToDo</strong> tag.</p>
 <p><a id='intro'></a></p>
 <h2 id="Introduction">Introduction<a class="anchor-link" href="#Introduction">&#182;</a></h2><p>A/B tests are very commonly performed by data analysts and data scientists. For this project, you will be working to understand the results of an A/B test run by an e-commerce website.  Your goal is to work through this notebook to help the company understand if they should:</p>
 <ul>
@@ -13152,9 +13148,6 @@ div#notebook {
 <li>Keep the old webpage, or </li>
 <li>Perhaps run the experiment longer to make their decision.</li>
 </ul>
-<p>Each <strong>ToDo</strong> task below has an associated quiz present in the classroom.  Though the classroom quizzes are <strong>not necessary</strong> to complete the project, they help ensure you are on the right track as you work through the project, and you can feel more confident in your final submission meeting the <a href="https://review.udacity.com/#!/rubrics/1214/view">rubric</a> specification.</p>
-<blockquote><p><strong>Tip</strong>: Though it's not a mandate, students can attempt the classroom quizzes to ensure statistical numeric values are calculated correctly in many cases.</p>
-</blockquote>
 <p><a id='probability'></a></p>
 <h2 id="Part-I---Probability">Part I - Probability<a class="anchor-link" href="#Part-I---Probability">&#182;</a></h2><p>To get started, let's import our libraries.</p>
 
@@ -13163,7 +13156,7 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[66]:</div>
+<div class="prompt input_prompt">In&nbsp;[110]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
@@ -13183,56 +13176,23 @@ div#notebook {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="ToDo-1.1">ToDo 1.1<a class="anchor-link" href="#ToDo-1.1">&#182;</a></h3><p>Now, read in the <code>ab_data.csv</code> data. Store it in <code>df</code>. Below is the description of the data, there are a total of 5 columns:</p>
+<p>Now, read in the <code>ab_data.csv</code> data. Store it in <code>df</code>. Below is the description of the data, there are a total of 5 columns:</p>
 <center>
 
-<table>
-<thead><tr>
-<th>Data columns</th>
-<th style="text-align:left">Purpose</th>
-<th style="text-align:right">Valid values</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>user_id</td>
-<td style="text-align:left">Unique ID</td>
-<td style="text-align:right">Int64 values</td>
-</tr>
-<tr>
-<td>timestamp</td>
-<td style="text-align:left">Time stamp when the user visited the webpage</td>
-<td style="text-align:right">-</td>
-</tr>
-<tr>
-<td>group</td>
-<td style="text-align:left">In the current A/B experiment, the users are categorized into two broad groups. <br>The <code>control</code> group users are expected to be served with <code>old_page</code>; and <code>treatment</code> group users are matched with the <code>new_page</code>. <br>However, <strong>some inaccurate rows</strong> are present in the initial data, such as a <code>control</code> group user is matched with a <code>new_page</code>.</td>
-<td style="text-align:right"><code>['control', 'treatment']</code></td>
-</tr>
-<tr>
-<td>landing_page</td>
-<td style="text-align:left">It denotes whether the user visited the old or new webpage.</td>
-<td style="text-align:right"><code>['old_page', 'new_page']</code></td>
-</tr>
-<tr>
-<td>converted</td>
-<td style="text-align:left">It denotes whether the user decided to pay for the company's product. Here, <code>1</code> means yes, the user bought the product.</td>
-<td style="text-align:right"><code>[0, 1]</code></td>
-</tr>
-</tbody>
-</table>
-<p>&lt;/center&gt;
-Use your dataframe to answer the questions in Quiz 1 of the classroom.</p>
-<blockquote><p><strong>Tip</strong>: Please save your work regularly.</p>
-</blockquote>
-<p><strong>a.</strong> Read in the dataset from the <code>ab_data.csv</code> file and take a look at the top few rows here:</p>
-
+|Data columns|Purpose|Valid values|
+| ------------- |:-------------| -----:|
+|user_id|Unique ID|Int64 values|
+|timestamp|Time stamp when the user visited the webpage|-|
+|group|In the current A/B experiment, the users are categorized into two broad groups. <br>The `control` group users are expected to be served with `old_page`; and `treatment` group users are matched with the `new_page`. <br>However, **some inaccurate rows** are present in the initial data, such as a `control` group user is matched with a `new_page`. |`['control', 'treatment']`|
+|landing_page|It denotes whether the user visited the old or new webpage.|`['old_page', 'new_page']`|
+|converted|It denotes whether the user decided to pay for the company's product. Here, `1` means yes, the user bought the product.|`[0, 1]`|
+</center>
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[67]:</div>
+<div class="prompt input_prompt">In&nbsp;[111]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;ab_data.csv&#39;</span><span class="p">)</span>
@@ -13246,14 +13206,14 @@ Use your dataframe to answer the questions in Quiz 1 of the classroom.</p>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p><strong>b.</strong> Use the cell below to find the number of rows in the dataset.</p>
+<p>Use the cell below to find the number of rows in the dataset.</p>
 
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[68]:</div>
+<div class="prompt input_prompt">In&nbsp;[112]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">info</span><span class="p">()</span>
@@ -13294,14 +13254,14 @@ memory usage: 11.2+ MB
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p><strong>c.</strong> The number of unique users in the dataset.</p>
+<p>The number of unique users in the dataset.</p>
 
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[69]:</div>
+<div class="prompt input_prompt">In&nbsp;[113]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;user_id&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">nunique</span><span class="p">()</span>
@@ -13317,7 +13277,7 @@ memory usage: 11.2+ MB
 
 <div class="output_area">
 
-    <div class="prompt output_prompt">Out[69]:</div>
+    <div class="prompt output_prompt">Out[113]:</div>
 
 
 
@@ -13335,14 +13295,14 @@ memory usage: 11.2+ MB
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p><strong>d.</strong> The proportion of users converted.</p>
+<p>The proportion of users converted.</p>
 
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[70]:</div>
+<div class="prompt input_prompt">In&nbsp;[114]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="nb">len</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;converted&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1</span><span class="p">])</span><span class="o">/</span><span class="nb">len</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;converted&#39;</span><span class="p">])</span>
@@ -13358,7 +13318,7 @@ memory usage: 11.2+ MB
 
 <div class="output_area">
 
-    <div class="prompt output_prompt">Out[70]:</div>
+    <div class="prompt output_prompt">Out[114]:</div>
 
 
 
@@ -13376,14 +13336,14 @@ memory usage: 11.2+ MB
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p><strong>e.</strong> The number of times when the "group" is <code>treatment</code> but "landing_page" is not a <code>new_page</code>.</p>
+<p>The number of times when the "group" is <code>treatment</code> but "landing_page" is not a <code>new_page</code>.</p>
 
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[71]:</div>
+<div class="prompt input_prompt">In&nbsp;[115]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">df_treatment</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;group&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;treatment&#39;</span><span class="p">]</span>
@@ -13400,7 +13360,7 @@ memory usage: 11.2+ MB
 
 <div class="output_area">
 
-    <div class="prompt output_prompt">Out[71]:</div>
+    <div class="prompt output_prompt">Out[115]:</div>
 
 
 
@@ -13418,14 +13378,14 @@ memory usage: 11.2+ MB
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p><strong>f.</strong> Do any of the rows have missing values?</p>
+<p>Do any of the rows have missing values?</p>
 
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[72]:</div>
+<div class="prompt input_prompt">In&nbsp;[116]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">info</span><span class="p">()</span>
@@ -13466,7 +13426,7 @@ memory usage: 11.2+ MB
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="ToDo-1.2">ToDo 1.2<a class="anchor-link" href="#ToDo-1.2">&#182;</a></h3><p>In a particular row, the <strong>group</strong> and <strong>landing_page</strong> columns should have either of the following acceptable values:</p>
+<p>In a particular row, the <strong>group</strong> and <strong>landing_page</strong> columns should have either of the following acceptable values:</p>
 <table>
 <thead><tr>
 <th>user_id</th>
@@ -13495,15 +13455,14 @@ memory usage: 11.2+ MB
 </table>
 <p>It means, the <code>control</code> group users should match with <code>old_page</code>; and <code>treatment</code> group users should matched with the <code>new_page</code>.</p>
 <p>However, for the rows where <code>treatment</code> does not match with <code>new_page</code> or <code>control</code> does not match with <code>old_page</code>, we cannot be sure if such rows truly received the new or old wepage.</p>
-<p>Use <strong>Quiz 2</strong> in the classroom to figure out how should we handle the rows where the group and landing_page columns don't match?</p>
-<p><strong>a.</strong> Now use the answer to the quiz to create a new dataset that meets the specifications from the quiz.  Store your new dataframe in <strong>df2</strong>.</p>
+<p>Store your new dataframe in <strong>df2</strong>.</p>
 
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[73]:</div>
+<div class="prompt input_prompt">In&nbsp;[117]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Remove the inaccurate rows, and store the result in a new dataframe df2</span>
@@ -13518,7 +13477,7 @@ memory usage: 11.2+ MB
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[74]:</div>
+<div class="prompt input_prompt">In&nbsp;[118]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Double Check all of the incorrect rows were removed from df2 - </span>
@@ -13536,7 +13495,7 @@ memory usage: 11.2+ MB
 
 <div class="output_area">
 
-    <div class="prompt output_prompt">Out[74]:</div>
+    <div class="prompt output_prompt">Out[118]:</div>
 
 
 
@@ -13554,7 +13513,6 @@ memory usage: 11.2+ MB
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="ToDo-1.3">ToDo 1.3<a class="anchor-link" href="#ToDo-1.3">&#182;</a></h3><p>Use <strong>df2</strong> and the cells below to answer questions for <strong>Quiz 3</strong> in the classroom.</p>
 
 </div>
 </div>
@@ -13562,14 +13520,14 @@ memory usage: 11.2+ MB
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p><strong>a.</strong> How many unique <strong>user_id</strong>s are in <strong>df2</strong>?</p>
+<p>How many unique <strong>user_id</strong>s are in <strong>df2</strong>?</p>
 
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[75]:</div>
+<div class="prompt input_prompt">In&nbsp;[119]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">df2</span><span class="p">[</span><span class="s1">&#39;user_id&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">nunique</span><span class="p">()</span>
@@ -13585,7 +13543,7 @@ memory usage: 11.2+ MB
 
 <div class="output_area">
 
-    <div class="prompt output_prompt">Out[75]:</div>
+    <div class="prompt output_prompt">Out[119]:</div>
 
 
 
@@ -13603,14 +13561,14 @@ memory usage: 11.2+ MB
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p><strong>b.</strong> There is one <strong>user_id</strong> repeated in <strong>df2</strong>.  What is it?</p>
+<p>There is one <strong>user_id</strong> repeated in <strong>df2</strong>.  What is it?</p>
 
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[76]:</div>
+<div class="prompt input_prompt">In&nbsp;[120]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">df2</span><span class="p">[</span><span class="n">df2</span><span class="p">[</span><span class="s1">&#39;user_id&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">duplicated</span><span class="p">()]</span>
@@ -13626,7 +13584,7 @@ memory usage: 11.2+ MB
 
 <div class="output_area">
 
-    <div class="prompt output_prompt">Out[76]:</div>
+    <div class="prompt output_prompt">Out[120]:</div>
 
 
 
@@ -13679,14 +13637,14 @@ memory usage: 11.2+ MB
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p><strong>c.</strong> Display the rows for the duplicate <strong>user_id</strong>?</p>
+<p>Display the rows for the duplicate <strong>user_id</strong>?</p>
 
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[77]:</div>
+<div class="prompt input_prompt">In&nbsp;[121]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">df2</span><span class="p">[</span><span class="n">df2</span><span class="p">[</span><span class="s1">&#39;user_id&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">duplicated</span><span class="p">()]</span>
@@ -13702,7 +13660,7 @@ memory usage: 11.2+ MB
 
 <div class="output_area">
 
-    <div class="prompt output_prompt">Out[77]:</div>
+    <div class="prompt output_prompt">Out[121]:</div>
 
 
 
@@ -13755,14 +13713,14 @@ memory usage: 11.2+ MB
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p><strong>d.</strong> Remove <strong>one</strong> of the rows with a duplicate <strong>user_id</strong>, from the <strong>df2</strong> dataframe.</p>
+<p>Remove <strong>one</strong> of the rows with a duplicate <strong>user_id</strong>, from the <strong>df2</strong> dataframe.</p>
 
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[78]:</div>
+<div class="prompt input_prompt">In&nbsp;[122]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Remove one of the rows with a duplicate user_id..</span>
@@ -13782,7 +13740,7 @@ memory usage: 11.2+ MB
 
 <div class="output_area">
 
-    <div class="prompt output_prompt">Out[78]:</div>
+    <div class="prompt output_prompt">Out[122]:</div>
 
 
 
@@ -13827,17 +13785,14 @@ memory usage: 11.2+ MB
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="ToDo-1.4">ToDo 1.4<a class="anchor-link" href="#ToDo-1.4">&#182;</a></h3><p>Use <strong>df2</strong> in the cells below to answer the quiz questions related to <strong>Quiz 4</strong> in the classroom.</p>
-<p><strong>a.</strong> What is the probability of an individual converting regardless of the page they receive?<br><br></p>
-<blockquote><p><strong>Tip</strong>: The probability  you'll compute represents the overall "converted" success rate in the population and you may call it $p_{population}$.</p>
-</blockquote>
+<p>What is the probability of an individual converting regardless of the page they receive?<br><br></p>
 
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[79]:</div>
+<div class="prompt input_prompt">In&nbsp;[123]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#df2.head(2)</span>
@@ -13854,7 +13809,7 @@ memory usage: 11.2+ MB
 
 <div class="output_area">
 
-    <div class="prompt output_prompt">Out[79]:</div>
+    <div class="prompt output_prompt">Out[123]:</div>
 
 
 
@@ -13872,14 +13827,14 @@ memory usage: 11.2+ MB
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p><strong>b.</strong> Given that an individual was in the <code>control</code> group, what is the probability they converted?</p>
+<p>Given that an individual was in the <code>control</code> group, what is the probability they converted?</p>
 
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[80]:</div>
+<div class="prompt input_prompt">In&nbsp;[124]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">df_control</span> <span class="o">=</span> <span class="n">df2</span><span class="p">[</span><span class="n">df2</span><span class="p">[</span><span class="s1">&#39;group&#39;</span><span class="p">]</span><span class="o">==</span><span class="s1">&#39;control&#39;</span><span class="p">]</span>
@@ -13896,7 +13851,7 @@ memory usage: 11.2+ MB
 
 <div class="output_area">
 
-    <div class="prompt output_prompt">Out[80]:</div>
+    <div class="prompt output_prompt">Out[124]:</div>
 
 
 
@@ -13914,14 +13869,14 @@ memory usage: 11.2+ MB
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p><strong>c.</strong> Given that an individual was in the <code>treatment</code> group, what is the probability they converted?</p>
+<p>Given that an individual was in the <code>treatment</code> group, what is the probability they converted?</p>
 
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[81]:</div>
+<div class="prompt input_prompt">In&nbsp;[125]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">df_treatment</span> <span class="o">=</span> <span class="n">df2</span><span class="p">[</span><span class="n">df2</span><span class="p">[</span><span class="s1">&#39;group&#39;</span><span class="p">]</span><span class="o">==</span><span class="s1">&#39;treatment&#39;</span><span class="p">]</span>
@@ -13938,7 +13893,7 @@ memory usage: 11.2+ MB
 
 <div class="output_area">
 
-    <div class="prompt output_prompt">Out[81]:</div>
+    <div class="prompt output_prompt">Out[125]:</div>
 
 
 
@@ -13956,16 +13911,13 @@ memory usage: 11.2+ MB
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<blockquote><p><strong>Tip</strong>: The probabilities you've computed in the points (b). and (c). above can also be treated as conversion rate. 
-Calculate the actual difference  (<code>obs_diff</code>) between the conversion rates for the two groups. You will need that later.</p>
-</blockquote>
 
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[82]:</div>
+<div class="prompt input_prompt">In&nbsp;[126]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Calculate the actual difference (obs_diff) between the conversion rates for the two groups.</span>
@@ -14001,14 +13953,14 @@ Calculate the actual difference  (<code>obs_diff</code>) between the conversion 
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p><strong>d.</strong> What is the probability that an individual received the new page?</p>
+<p>What is the probability that an individual received the new page?</p>
 
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[83]:</div>
+<div class="prompt input_prompt">In&nbsp;[127]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="nb">len</span><span class="p">(</span><span class="n">df2</span><span class="p">[</span><span class="n">df2</span><span class="p">[</span><span class="s1">&#39;landing_page&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;new_page&#39;</span><span class="p">])</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">df2</span><span class="p">[</span><span class="s1">&#39;landing_page&#39;</span><span class="p">])</span>
@@ -14024,7 +13976,7 @@ Calculate the actual difference  (<code>obs_diff</code>) between the conversion 
 
 <div class="output_area">
 
-    <div class="prompt output_prompt">Out[83]:</div>
+    <div class="prompt output_prompt">Out[127]:</div>
 
 
 
@@ -14042,7 +13994,7 @@ Calculate the actual difference  (<code>obs_diff</code>) between the conversion 
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p><strong>e.</strong> Consider your results from parts (a) through (d) above, and explain below whether the new <code>treatment</code> group users lead to more conversions.</p>
+<p>Consider your results from parts (a) through (d) above, and explain below whether the new <code>treatment</code> group users lead to more conversions.</p>
 
 </div>
 </div>
@@ -14071,8 +14023,8 @@ Calculate the actual difference  (<code>obs_diff</code>) between the conversion 
 <li>How long do you run to render a decision that neither page is better than another?  </li>
 </ul>
 <p>These questions are the difficult parts associated with A/B tests in general.</p>
-<h3 id="ToDo-2.1">ToDo 2.1<a class="anchor-link" href="#ToDo-2.1">&#182;</a></h3><p>For now, consider you need to make the decision just based on all the data provided.</p>
-<blockquote><p>Recall that you just calculated that the "converted" probability (or rate) for the old page is <em>slightly</em> higher than that of the new page (ToDo 1.4.c).</p>
+<p>For now, consider you need to make the decision just based on all the data provided.</p>
+<blockquote><p>Recall that you just calculated that the "converted" probability (or rate) for the old page is <em>slightly</em> higher than that of the new page.</p>
 </blockquote>
 <p>If you want to assume that the old page is better unless the new page proves to be definitely better at a Type I error rate of 5%, what should be your null and alternative hypotheses (<strong>$H_0$</strong> and <strong>$H_1$</strong>)?</p>
 <p>You can state your hypothesis in terms of words or in terms of <strong>$p_{old}$</strong> and <strong>$p_{new}$</strong>, which are the "converted" probability (or rate) for the old and new pages respectively.</p>
@@ -14109,7 +14061,6 @@ $p_{new}$ = $p_{old}$ = $p_{population}$
 <ul>
 <li>Perform the sampling distribution for the "difference in the converted probability" between the two simulated-samples over 10,000 iterations; and calculate an estimate. </li>
 </ul>
-<p>Use the cells below to provide the necessary parts of this simulation.  You can use <strong>Quiz 5</strong> in the classroom to make sure you are on the right track.</p>
 
 </div>
 </div>
@@ -14117,14 +14068,14 @@ $p_{new}$ = $p_{old}$ = $p_{population}$
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p><strong>a.</strong> What is the <strong>conversion rate</strong> for $p_{new}$ under the null hypothesis?</p>
+<p>What is the <strong>conversion rate</strong> for $p_{new}$ under the null hypothesis?</p>
 
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[84]:</div>
+<div class="prompt input_prompt">In&nbsp;[128]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">p_new</span> <span class="o">=</span> <span class="n">df2</span><span class="p">[</span><span class="s1">&#39;converted&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
@@ -14158,14 +14109,14 @@ $p_{new}$ = $p_{old}$ = $p_{population}$
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p><strong>b.</strong> What is the <strong>conversion rate</strong> for $p_{old}$ under the null hypothesis?</p>
+<p>What is the <strong>conversion rate</strong> for $p_{old}$ under the null hypothesis?</p>
 
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[85]:</div>
+<div class="prompt input_prompt">In&nbsp;[129]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">p_old</span> <span class="o">=</span> <span class="n">p_new</span>
@@ -14198,7 +14149,7 @@ $p_{new}$ = $p_{old}$ = $p_{population}$
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p><strong>c.</strong> What is $n_{new}$, the number of individuals in the treatment group? <br><br>
+<p>What is $n_{new}$, the number of individuals in the treatment group? <br><br>
 <em>Hint</em>: The treatment group users are shown the new page.</p>
 
 </div>
@@ -14206,7 +14157,7 @@ $p_{new}$ = $p_{old}$ = $p_{population}$
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[86]:</div>
+<div class="prompt input_prompt">In&nbsp;[130]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">n_new</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">df2</span><span class="p">[</span><span class="n">df2</span><span class="p">[</span><span class="s1">&#39;group&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;treatment&#39;</span><span class="p">])</span>
@@ -14239,14 +14190,14 @@ $p_{new}$ = $p_{old}$ = $p_{population}$
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p><strong>d.</strong> What is $n_{old}$, the number of individuals in the control group?</p>
+<p>What is $n_{old}$, the number of individuals in the control group?</p>
 
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[87]:</div>
+<div class="prompt input_prompt">In&nbsp;[131]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">n_old</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">df2</span><span class="p">[</span><span class="n">df2</span><span class="p">[</span><span class="s1">&#39;group&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;control&#39;</span><span class="p">])</span>
@@ -14279,9 +14230,8 @@ $p_{new}$ = $p_{old}$ = $p_{population}$
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p><strong>e. Simulate Sample for the <code>treatment</code> Group</strong><br> 
-Simulate $n_{new}$ transactions with a conversion rate of $p_{new}$ under the null hypothesis.  <br><br>
-<em>Hint</em>: Use <code>numpy.random.choice()</code> method to randomly generate $n_{new}$ number of values. <br>
+<p>Simulate Sample for the <code>treatment</code> Group*<em><br> 
+Simulate $n_{new}$ transactions with a conversion rate of $p_{new}$ under the null hypothesis.  <br><br></em>Hint*: Use <code>numpy.random.choice()</code> method to randomly generate $n_{new}$ number of values. <br>
 Store these $n_{new}$ 1's and 0's in the <code>new_page_converted</code> numpy array.</p>
 
 </div>
@@ -14289,7 +14239,7 @@ Store these $n_{new}$ 1's and 0's in the <code>new_page_converted</code> numpy a
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[88]:</div>
+<div class="prompt input_prompt">In&nbsp;[132]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Simulate a Sample for the treatment Group</span>
@@ -14307,7 +14257,7 @@ Store these $n_{new}$ 1's and 0's in the <code>new_page_converted</code> numpy a
 
 <div class="output_area">
 
-    <div class="prompt output_prompt">Out[88]:</div>
+    <div class="prompt output_prompt">Out[132]:</div>
 
 
 
@@ -14325,7 +14275,7 @@ Store these $n_{new}$ 1's and 0's in the <code>new_page_converted</code> numpy a
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p><strong>f. Simulate Sample for the <code>control</code> Group</strong> <br>
+<p>Simulate Sample for the <code>control</code> Group** <br>
 Simulate $n_{old}$ transactions with a conversion rate of $p_{old}$ under the null hypothesis. <br> Store these $n_{old}$ 1's and 0's in the <code>old_page_converted</code> numpy array.</p>
 
 </div>
@@ -14333,7 +14283,7 @@ Simulate $n_{old}$ transactions with a conversion rate of $p_{old}$ under the nu
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[89]:</div>
+<div class="prompt input_prompt">In&nbsp;[133]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Simulate a Sample for the control Group</span>
@@ -14351,13 +14301,13 @@ Simulate $n_{old}$ transactions with a conversion rate of $p_{old}$ under the nu
 
 <div class="output_area">
 
-    <div class="prompt output_prompt">Out[89]:</div>
+    <div class="prompt output_prompt">Out[133]:</div>
 
 
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>array([0, 1, 0, ..., 0, 0, 0])</pre>
+<pre>array([0, 0, 0, ..., 0, 0, 0])</pre>
 </div>
 
 </div>
@@ -14369,14 +14319,14 @@ Simulate $n_{old}$ transactions with a conversion rate of $p_{old}$ under the nu
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p><strong>g.</strong> Find the difference in the "converted" probability $(p{'}_{new}$ - $p{'}_{old})$ for your simulated samples from the parts (e) and (f) above.</p>
+<p>Find the difference in the "converted" probability $(p{'}_{new}$ - $p{'}_{old})$ for your simulated samples from the parts (e) and (f) above.</p>
 
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[90]:</div>
+<div class="prompt input_prompt">In&nbsp;[134]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">new_page_converted</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span> <span class="o">-</span> <span class="n">old_page_converted</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
@@ -14392,13 +14342,13 @@ Simulate $n_{old}$ transactions with a conversion rate of $p_{old}$ under the nu
 
 <div class="output_area">
 
-    <div class="prompt output_prompt">Out[90]:</div>
+    <div class="prompt output_prompt">Out[134]:</div>
 
 
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>0.0009546204828560223</pre>
+<pre>0.00032827082725440937</pre>
 </div>
 
 </div>
@@ -14410,7 +14360,7 @@ Simulate $n_{old}$ transactions with a conversion rate of $p_{old}$ under the nu
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p><strong>h. Sampling distribution</strong> <br>
+<p>Sampling distribution** <br>
 Re-create <code>new_page_converted</code> and <code>old_page_converted</code> and find the $(p{'}_{new}$ - $p{'}_{old})$ value 10,000 times using the same simulation process you used in parts (a) through (g) above.</p>
 <p><br>
 Store all  $(p{'}_{new}$ - $p{'}_{old})$  values in a NumPy array called <code>p_diffs</code>.</p>
@@ -14420,7 +14370,7 @@ Store all  $(p{'}_{new}$ - $p{'}_{old})$  values in a NumPy array called <code>p
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[91]:</div>
+<div class="prompt input_prompt">In&nbsp;[135]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Sampling distribution </span>
@@ -14438,7 +14388,7 @@ Store all  $(p{'}_{new}$ - $p{'}_{old})$  values in a NumPy array called <code>p
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p><strong>i. Histogram</strong><br> 
+<p><strong>Histogram</strong><br> 
 Plot a histogram of the <strong>p_diffs</strong>.  Does this plot look like what you expected?  Use the matching problem in the classroom to assure you fully understand what was computed here.<br><br></p>
 <p>Also, use <code>plt.axvline()</code> method to mark the actual difference observed  in the <code>df2</code> data (recall <code>obs_diff</code>), in the chart.</p>
 <blockquote><p><strong>Tip</strong>: Display title, x-label, and y-label in the chart.</p>
@@ -14449,7 +14399,7 @@ Plot a histogram of the <strong>p_diffs</strong>.  Does this plot look like what
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[92]:</div>
+<div class="prompt input_prompt">In&nbsp;[136]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="n">obs_diff</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s1">&#39;y&#39;</span><span class="p">);</span>
@@ -14469,17 +14419,18 @@ Plot a histogram of the <strong>p_diffs</strong>.  Does this plot look like what
 
 <div class="output_area">
 
-    <div class="prompt output_prompt">Out[92]:</div>
+    <div class="prompt output_prompt">Out[136]:</div>
 
 
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>(array([   10.,    80.,   452.,  1446.,  2521.,  2830.,  1813.,   673.,
-          156.,    19.]),
- array([-0.00462738, -0.00373125, -0.00283513, -0.001939  , -0.00104287,
-        -0.00014674,  0.00074939,  0.00164552,  0.00254165,  0.00343778,
-         0.00433391]),
+<pre>(array([   11.,    82.,   510.,  1486.,  2720.,  2852.,  1661.,   561.,
+          100.,    17.]),
+ array([ -4.59986249e-03,  -3.68857589e-03,  -2.77728929e-03,
+         -1.86600268e-03,  -9.54716078e-04,  -4.34294746e-05,
+          8.67857129e-04,   1.77914373e-03,   2.69043034e-03,
+          3.60171694e-03,   4.51300354e-03]),
  &lt;a list of 10 Patch objects&gt;)</pre>
 </div>
 
@@ -14493,7 +14444,7 @@ Plot a histogram of the <strong>p_diffs</strong>.  Does this plot look like what
 
 
 <div class="output_png output_subarea ">
-<img src="data:image/png;base64,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
+<img src="data:image/png;base64,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
 "
 >
 </div>
@@ -14507,7 +14458,7 @@ Plot a histogram of the <strong>p_diffs</strong>.  Does this plot look like what
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p><strong>j.</strong> What proportion of the <strong>p_diffs</strong> are greater than the actual difference observed in the <code>df2</code> data?</p>
+<p>What proportion of the <strong>p_diffs</strong> are greater than the actual difference observed in the <code>df2</code> data?</p>
 
 </div>
 </div>
@@ -14527,7 +14478,7 @@ Plot a histogram of the <strong>p_diffs</strong>.  Does this plot look like what
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[93]:</div>
+<div class="prompt input_prompt">In&nbsp;[137]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">actual_diffs</span> <span class="o">=</span> <span class="p">(</span><span class="n">df2</span><span class="p">[</span><span class="n">df2</span><span class="p">[</span><span class="s1">&#39;group&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;treatment&quot;</span><span class="p">][</span><span class="s1">&#39;converted&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">())</span> <span class="o">-</span> <span class="p">(</span><span class="n">df2</span><span class="p">[</span><span class="n">df2</span><span class="p">[</span><span class="s1">&#39;group&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;control&quot;</span><span class="p">][</span><span class="s1">&#39;converted&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">())</span>
@@ -14544,13 +14495,13 @@ Plot a histogram of the <strong>p_diffs</strong>.  Does this plot look like what
 
 <div class="output_area">
 
-    <div class="prompt output_prompt">Out[93]:</div>
+    <div class="prompt output_prompt">Out[137]:</div>
 
 
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>0.9002</pre>
+<pre>0.90559999999999996</pre>
 </div>
 
 </div>
@@ -14562,7 +14513,7 @@ Plot a histogram of the <strong>p_diffs</strong>.  Does this plot look like what
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p><strong>k.</strong> Please explain in words what you have just computed in part <strong>j</strong> above.</p>
+<p>Please explain in words what you have just computed above.</p>
 <ul>
 <li>What is this value called in scientific studies?  </li>
 <li>What does this value signify in terms of whether or not there is a difference between the new and old pages? <em>Hint</em>: Compare the value above with the "Type I error rate (0.05)". </li>
@@ -14586,7 +14537,7 @@ Plot a histogram of the <strong>p_diffs</strong>.  Does this plot look like what
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p><strong>l. Using Built-in Methods for Hypothesis Testing</strong><br>
+<p><strong>Using Built-in Methods for Hypothesis Testing</strong><br>
 We could also use a built-in to achieve similar results.  Though using the built-in might be easier to code, the above portions are a walkthrough of the ideas that are critical to correctly thinking about statistical significance.</p>
 <p>Fill in the statements below to calculate the:</p>
 <ul>
@@ -14601,7 +14552,7 @@ We could also use a built-in to achieve similar results.  Though using the built
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[94]:</div>
+<div class="prompt input_prompt">In&nbsp;[138]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">df2</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
@@ -14617,7 +14568,7 @@ We could also use a built-in to achieve similar results.  Though using the built
 
 <div class="output_area">
 
-    <div class="prompt output_prompt">Out[94]:</div>
+    <div class="prompt output_prompt">Out[138]:</div>
 
 
 
@@ -14669,7 +14620,7 @@ We could also use a built-in to achieve similar results.  Though using the built
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[95]:</div>
+<div class="prompt input_prompt">In&nbsp;[139]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">statsmodels.api</span> <span class="k">as</span> <span class="nn">sm</span>
@@ -14695,7 +14646,7 @@ We could also use a built-in to achieve similar results.  Though using the built
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p><strong>m.</strong> Now use <code>sm.stats.proportions_ztest()</code> to compute your test statistic and p-value.  <a href="https://www.statsmodels.org/stable/generated/statsmodels.stats.proportion.proportions_ztest.html">Here</a> is a helpful link on using the built in.</p>
+<p>Now use <code>sm.stats.proportions_ztest()</code> to compute your test statistic and p-value.  <a href="https://www.statsmodels.org/stable/generated/statsmodels.stats.proportion.proportions_ztest.html">Here</a> is a helpful link on using the built in.</p>
 <p>The syntax is:</p>
 <div class="highlight"><pre><span></span>proportions_ztest<span class="o">(</span>count_array, nobs_array, <span class="nv">alternative</span><span class="o">=</span><span class="s1">&#39;larger&#39;</span><span class="o">)</span>
 </pre></div>
@@ -14750,7 +14701,7 @@ For a left-tailed test, reject null if $Z_{score}$ &lt; $Z_{\alpha}$.</p>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[96]:</div>
+<div class="prompt input_prompt">In&nbsp;[140]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">statsmodels.api</span> <span class="k">as</span> <span class="nn">sm</span>
@@ -14786,7 +14737,7 @@ For a left-tailed test, reject null if $Z_{score}$ &lt; $Z_{\alpha}$.</p>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p><strong>n.</strong> What do the z-score and p-value you computed in the previous question mean for the conversion rates of the old and new pages?  Do they agree with the findings in parts <strong>j.</strong> and <strong>k.</strong>?<br><br></p>
+<p>What do the z-score and p-value you computed in the previous question mean for the conversion rates of the old and new pages?  Do they agree with the findings in the above parts ?<br><br></p>
 <blockquote><p><strong>Tip</strong>: Notice whether the p-value is similar to the one computed earlier. Accordingly, can you reject/fail to reject the null hypothesis? It is important to correctly interpret the test statistic and p-value.</p>
 </blockquote>
 
@@ -14806,8 +14757,8 @@ The p-value which matches the earlier calculation, suggests that conversion from
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p><a id='regression'></a></p>
-<h3 id="Part-III---A-regression-approach">Part III - A regression approach<a class="anchor-link" href="#Part-III---A-regression-approach">&#182;</a></h3><h3 id="ToDo-3.1">ToDo 3.1<a class="anchor-link" href="#ToDo-3.1">&#182;</a></h3><p>In this final part, you will see that the result you achieved in the A/B test in Part II above can also be achieved by performing regression.<br><br></p>
-<p><strong>a.</strong> Since each row in the <code>df2</code> data is either a conversion or no conversion, what type of regression should you be performing in this case?</p>
+<h3 id="Part-III---A-regression-approach">Part III - A regression approach<a class="anchor-link" href="#Part-III---A-regression-approach">&#182;</a></h3><p>In this final part, you will see that the result you achieved in the A/B test in Part II above can also be achieved by performing regression.<br><br></p>
+<p>Since each row in the <code>df2</code> data is either a conversion or no conversion, what type of regression should you be performing in this case?</p>
 
 </div>
 </div>
@@ -14823,7 +14774,7 @@ The p-value which matches the earlier calculation, suggests that conversion from
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p><strong>b.</strong> The goal is to use <strong>statsmodels</strong> library to fit the regression model you specified in part <strong>a.</strong> above to see if there is a significant difference in conversion based on the page-type a customer receives. However, you first need to create the following two columns in the <code>df2</code> dataframe:</p>
+<p>The goal is to use <strong>statsmodels</strong> library to fit the regression model you specified in part <strong>a.</strong> above to see if there is a significant difference in conversion based on the page-type a customer receives. However, you first need to create the following two columns in the <code>df2</code> dataframe:</p>
 <ol>
 <li><code>intercept</code> - It should be <code>1</code> in the entire column. </li>
 <li><code>ab_page</code> - It's a dummy variable column, having a value <code>1</code> when an individual receives the <strong>treatment</strong>, otherwise <code>0</code>.  </li>
@@ -14834,7 +14785,7 @@ The p-value which matches the earlier calculation, suggests that conversion from
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[97]:</div>
+<div class="prompt input_prompt">In&nbsp;[141]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">df2</span><span class="p">[</span><span class="s1">&#39;intercept&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
@@ -14852,7 +14803,7 @@ The p-value which matches the earlier calculation, suggests that conversion from
 
 <div class="output_area">
 
-    <div class="prompt output_prompt">Out[97]:</div>
+    <div class="prompt output_prompt">Out[141]:</div>
 
 
 
@@ -14949,14 +14900,14 @@ The p-value which matches the earlier calculation, suggests that conversion from
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p><strong>c.</strong> Use <strong>statsmodels</strong> to instantiate your regression model on the two columns you created in part (b). above, then fit the model to predict whether or not an individual converts.</p>
+<p>Use <strong>statsmodels</strong> to instantiate your regression model on the two columns you created in part (b). above, then fit the model to predict whether or not an individual converts.</p>
 
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[98]:</div>
+<div class="prompt input_prompt">In&nbsp;[142]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">logit_mod</span> <span class="o">=</span> <span class="n">sm</span><span class="o">.</span><span class="n">Logit</span><span class="p">(</span><span class="n">df2</span><span class="p">[</span><span class="s1">&#39;converted&#39;</span><span class="p">],</span> <span class="n">df2</span><span class="p">[[</span><span class="s1">&#39;intercept&#39;</span><span class="p">,</span> <span class="s1">&#39;ab_page&#39;</span><span class="p">]])</span>
@@ -14990,7 +14941,7 @@ The p-value which matches the earlier calculation, suggests that conversion from
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[99]:</div>
+<div class="prompt input_prompt">In&nbsp;[143]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">scipy</span> <span class="k">import</span> <span class="n">stats</span>
@@ -15005,14 +14956,14 @@ The p-value which matches the earlier calculation, suggests that conversion from
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p><strong>d.</strong> Provide the summary of your model below, and use it as necessary to answer the following questions.</p>
+<p>Provide the summary of your model below, and use it as necessary to answer the following questions.</p>
 
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[100]:</div>
+<div class="prompt input_prompt">In&nbsp;[144]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">result</span><span class="o">.</span><span class="n">summary</span><span class="p">()</span>
@@ -15028,7 +14979,7 @@ The p-value which matches the earlier calculation, suggests that conversion from
 
 <div class="output_area">
 
-    <div class="prompt output_prompt">Out[100]:</div>
+    <div class="prompt output_prompt">Out[144]:</div>
 
 
 
@@ -15048,7 +14999,7 @@ The p-value which matches the earlier calculation, suggests that conversion from
   <th>Date:</th>          <td>Fri, 15 Oct 2021</td> <th>  Pseudo R-squ.:     </th>  <td>8.077e-06</td> 
 </tr>
 <tr>
-  <th>Time:</th>              <td>18:35:18</td>     <th>  Log-Likelihood:    </th> <td>-1.0639e+05</td>
+  <th>Time:</th>              <td>18:35:53</td>     <th>  Log-Likelihood:    </th> <td>-1.0639e+05</td>
 </tr>
 <tr>
   <th>converged:</th>           <td>True</td>       <th>  LL-Null:           </th> <td>-1.0639e+05</td>
@@ -15079,7 +15030,7 @@ The p-value which matches the earlier calculation, suggests that conversion from
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p><strong>e.</strong> What is the p-value associated with <strong>ab_page</strong>? Why does it differ from the value you found in <strong>Part II</strong>?<br><br></p>
+<p>What is the p-value associated with <strong>ab_page</strong>? Why does it differ from the value you found in <strong>Part II</strong>?<br><br></p>
 <p><strong>Hints</strong>:</p>
 <ul>
 <li>What are the null and alternative hypotheses associated with your regression model, and how do they compare to the null and alternative hypotheses in <strong>Part II</strong>? </li>
@@ -15104,7 +15055,7 @@ The p-value which matches the earlier calculation, suggests that conversion from
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p><strong>f.</strong> Now, you are considering other things that might influence whether or not an individual converts.  Discuss why it is a good idea to consider other factors to add into your regression model.  Are there any disadvantages to adding additional terms into your regression model?</p>
+<p>Now, you are considering other things that might influence whether or not an individual converts.  Discuss why it is a good idea to consider other factors to add into your regression model.  Are there any disadvantages to adding additional terms into your regression model?</p>
 
 </div>
 </div>
@@ -15120,7 +15071,7 @@ The p-value which matches the earlier calculation, suggests that conversion from
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p><strong>g. Adding countries</strong><br> 
+<p><strong>Adding countries</strong><br> 
 Now along with testing if the conversion rate changes for different pages, also add an effect based on which country a user lives in.</p>
 <ol>
 <li><p>You will need to read in the <strong>countries.csv</strong> dataset and merge together your <code>df2</code> datasets on the appropriate rows. You call the resulting dataframe <code>df_merged</code>. <a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.join.html">Here</a> are the docs for joining tables.</p>
@@ -15137,7 +15088,7 @@ Now along with testing if the conversion rate changes for different pages, also 
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[101]:</div>
+<div class="prompt input_prompt">In&nbsp;[145]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Read the countries.csv</span>
@@ -15155,7 +15106,7 @@ Now along with testing if the conversion rate changes for different pages, also 
 
 <div class="output_area">
 
-    <div class="prompt output_prompt">Out[101]:</div>
+    <div class="prompt output_prompt">Out[145]:</div>
 
 
 
@@ -15221,7 +15172,7 @@ Now along with testing if the conversion rate changes for different pages, also 
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[102]:</div>
+<div class="prompt input_prompt">In&nbsp;[146]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Join with the df2 dataframe</span>
@@ -15235,7 +15186,7 @@ Now along with testing if the conversion rate changes for different pages, also 
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[103]:</div>
+<div class="prompt input_prompt">In&nbsp;[147]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">df3</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
@@ -15251,7 +15202,7 @@ Now along with testing if the conversion rate changes for different pages, also 
 
 <div class="output_area">
 
-    <div class="prompt output_prompt">Out[103]:</div>
+    <div class="prompt output_prompt">Out[147]:</div>
 
 
 
@@ -15357,7 +15308,7 @@ Now along with testing if the conversion rate changes for different pages, also 
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[104]:</div>
+<div class="prompt input_prompt">In&nbsp;[148]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Create the necessary dummy variables</span>
@@ -15371,7 +15322,7 @@ Now along with testing if the conversion rate changes for different pages, also 
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[105]:</div>
+<div class="prompt input_prompt">In&nbsp;[149]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">df3</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
@@ -15387,7 +15338,7 @@ Now along with testing if the conversion rate changes for different pages, also 
 
 <div class="output_area">
 
-    <div class="prompt output_prompt">Out[105]:</div>
+    <div class="prompt output_prompt">Out[149]:</div>
 
 
 
@@ -15514,7 +15465,7 @@ Now along with testing if the conversion rate changes for different pages, also 
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[106]:</div>
+<div class="prompt input_prompt">In&nbsp;[150]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">df3</span><span class="p">[</span><span class="s1">&#39;interaction&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
@@ -15546,7 +15497,7 @@ Now along with testing if the conversion rate changes for different pages, also 
 
 <div class="output_area">
 
-    <div class="prompt output_prompt">Out[106]:</div>
+    <div class="prompt output_prompt">Out[150]:</div>
 
 
 
@@ -15566,7 +15517,7 @@ Now along with testing if the conversion rate changes for different pages, also 
   <th>Date:</th>          <td>Fri, 15 Oct 2021</td> <th>  Pseudo R-squ.:     </th>  <td>2.323e-05</td> 
 </tr>
 <tr>
-  <th>Time:</th>              <td>18:35:19</td>     <th>  Log-Likelihood:    </th> <td>-1.0639e+05</td>
+  <th>Time:</th>              <td>18:35:54</td>     <th>  Log-Likelihood:    </th> <td>-1.0639e+05</td>
 </tr>
 <tr>
   <th>converged:</th>           <td>True</td>       <th>  LL-Null:           </th> <td>-1.0639e+05</td>
@@ -15602,7 +15553,7 @@ Now along with testing if the conversion rate changes for different pages, also 
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[107]:</div>
+<div class="prompt input_prompt">In&nbsp;[151]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="mi">1</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">params</span><span class="p">)</span>
@@ -15618,7 +15569,7 @@ Now along with testing if the conversion rate changes for different pages, also 
 
 <div class="output_area">
 
-    <div class="prompt output_prompt">Out[107]:</div>
+    <div class="prompt output_prompt">Out[151]:</div>
 
 
 
@@ -15651,8 +15602,8 @@ dtype: float64</pre>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p><strong>h. Fit your model and obtain the results</strong><br> 
-Though you have now looked at the individual factors of country and page on conversion, we would now like to look at an interaction between page and country to see if are there significant effects on conversion.  <strong>Create the necessary additional columns, and fit the new model.</strong></p>
+<p>Fit your model and obtain the results<strong><br> 
+Though you have now looked at the individual factors of country and page on conversion, we would now like to look at an interaction between page and country to see if are there significant effects on conversion.  </strong>Create the necessary additional columns, and fit the new model.**</p>
 <p>Provide the summary results (statistical output), and your conclusions (written response) based on the results.</p>
 <blockquote><p><strong>Tip</strong>: Conclusions should include both statistical reasoning, and practical reasoning for the situation.</p>
 <p><strong>Hints</strong>:</p>
@@ -15668,7 +15619,7 @@ Though you have now looked at the individual factors of country and page on conv
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[109]:</div>
+<div class="prompt input_prompt">In&nbsp;[152]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Fit your model, and summarize the results</span>
@@ -15702,7 +15653,7 @@ Though you have now looked at the individual factors of country and page on conv
 
 <div class="output_area">
 
-    <div class="prompt output_prompt">Out[109]:</div>
+    <div class="prompt output_prompt">Out[152]:</div>
 
 
 
@@ -15722,7 +15673,7 @@ Though you have now looked at the individual factors of country and page on conv
   <th>Date:</th>          <td>Fri, 15 Oct 2021</td> <th>  Pseudo R-squ.:     </th>  <td>3.482e-05</td> 
 </tr>
 <tr>
-  <th>Time:</th>              <td>18:35:30</td>     <th>  Log-Likelihood:    </th> <td>-1.0639e+05</td>
+  <th>Time:</th>              <td>18:35:55</td>     <th>  Log-Likelihood:    </th> <td>-1.0639e+05</td>
 </tr>
 <tr>
   <th>converged:</th>           <td>True</td>       <th>  LL-Null:           </th> <td>-1.0639e+05</td>
@@ -15764,7 +15715,7 @@ Though you have now looked at the individual factors of country and page on conv
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[49]:</div>
+<div class="prompt input_prompt">In&nbsp;[153]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="mi">1</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">results</span><span class="o">.</span><span class="n">params</span><span class="p">)</span>
@@ -15780,17 +15731,18 @@ Though you have now looked at the individual factors of country and page on conv
 
 <div class="output_area">
 
-    <div class="prompt output_prompt">Out[49]:</div>
+    <div class="prompt output_prompt">Out[153]:</div>
 
 
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>intercept     7.671651
-CA            0.955701
-UK            0.950227
-CA_ab_page    0.989224
-UK_ab_page    1.020776
+<pre>intercept     7.418713
+CA            0.988285
+UK            0.982625
+ab_page       1.069775
+CA_ab_page    0.924703
+UK_ab_page    0.954198
 dtype: float64</pre>
 </div>
 
@@ -15825,21 +15777,6 @@ dtype: float64</pre>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p><a id='finalcheck'></a></p>
-<h2 id="Final-Check!">Final Check!<a class="anchor-link" href="#Final-Check!">&#182;</a></h2><p>Congratulations!  You have reached the end of the A/B Test Results project!  You should be very proud of all you have accomplished!</p>
-<blockquote><p><strong>Tip</strong>: Once you are satisfied with your work here, check over your notebook to make sure that it satisfies all the specifications mentioned in the rubric. You should also probably remove all of the "Hints" and "Tips" like this one so that the presentation is as polished as possible.</p>
-</blockquote>
-<p><a id='submission'></a></p>
-<h2 id="Submission">Submission<a class="anchor-link" href="#Submission">&#182;</a></h2><p>You may either submit your notebook through the "SUBMIT PROJECT" button at the bottom of this workspace, or you may work from your local machine and submit on  the last page of this project lesson.</p>
-<ol>
-<li>Before you submit your project, you need to create a .html or .pdf version of this notebook in the workspace here. To do that, run the code cell below. If it worked correctly, you should get a return code of 0, and you should see the generated .html file in the workspace directory (click on the orange Jupyter icon in the upper left).</li>
-</ol>
-<ol>
-<li>Alternatively, you can download this report as .html via the <strong>File</strong> &gt; <strong>Download as</strong> submenu, and then manually upload it into the workspace directory by clicking on the orange Jupyter icon in the upper left, then using the Upload button.</li>
-</ol>
-<ol>
-<li>Once you've done this, you can submit your project by clicking on the "Submit Project" button in the lower right here. This will create and submit a zip file with this .ipynb doc and the .html or .pdf version you created. Congratulations!</li>
-</ol>
 
 </div>
 </div>
@@ -15849,8 +15786,7 @@ dtype: float64</pre>
 <div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">subprocess</span> <span class="k">import</span> <span class="n">call</span>
-<span class="n">call</span><span class="p">([</span><span class="s1">&#39;python&#39;</span><span class="p">,</span> <span class="s1">&#39;-m&#39;</span><span class="p">,</span> <span class="s1">&#39;nbconvert&#39;</span><span class="p">,</span> <span class="s1">&#39;Analyze_ab_test_results_notebook.ipynb&#39;</span><span class="p">])</span>
+<div class=" highlight hl-ipython3"><pre><span></span> 
 </pre></div>
 
     </div>
